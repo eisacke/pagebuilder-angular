@@ -1,0 +1,12 @@
+<h1>Pages New</h1>
+
+<div ng-controller="PagesController as pages">
+
+    <form id="newPage" ng-submit="pages.createPage()">
+        <label>Title</label>
+        <input type="text" name="name" ng-model="pages.newPage.title">
+
+        <input type="submit" value="Create Page">
+    </form>
+
+</div>

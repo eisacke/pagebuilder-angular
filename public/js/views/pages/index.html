@@ -1,0 +1,14 @@
+<div ng-controller="PagesController as pages">
+	<h1>Pages Index</h1>
+	  <ul>
+	  	<li ng-repeat="page in pages.all">
+	  		<ul>
+	  			<li>
+	  				<a href="#/pages/{{page._id}}">
+	  					{{ page.title }}
+	  				</a>
+	  			</li>
+	  		</ul>
+	  	</li>
+	  </ul>
+</div>

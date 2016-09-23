@@ -1,0 +1,88 @@
+<div ng-controller="PagesController as pages">
+	<section>
+		<h1>{{pages.page.title}}</h2>
+		<ul class="modules" >
+			<div ng-if="pages.page.modules.length == 0">
+				<h3>Drag module here</h3>
+			</div>
+			<div id="sortable">
+				<li ng-repeat="module in pages.page.modules | orderBy: 'rank'" id="{{module._id}}">
+					<div class="module module--text" ng-if="module.type == 'text'">
+						<h3>{{ module.type }}</h3>
+						<p>{{module.content }}</p>
+						<button ng-click="pages.deleteModule(module)">Delete</button>
+						<button ng-click="pages.populateForm(module)">Edit</button>
+					</div>
+					<div class="module module--image" ng-if="module.type == 'image'">
+						<h3>{{ module.type }}</h3>
+						<img ng-src="{{module.content }}">
+						<p ng-if="module.caption">{{ module.caption }}</p>
+						<button ng-click="pages.deleteModule(module)">Delete</button>
+						<button ng-click="pages.populateForm(module)">Edit</button>
+					</div>
+					<div class="module module--blockquote" ng-if="module.type == 'blockquote'">
+						<h3>{{ module.type }}</h3>
+						<blockquote>{{ module.content }}</blockquote>
+						<button ng-click="pages.deleteModule(module)">Delete</button>
+						<button ng-click="pages.populateForm(module)">Edit</button>
+					</div>
+				</li>
+			</div>
+		</ul>
+    </section>
+    <aside>
+    	<h2>Add a new module</h2>
+    	<div class="components">
+	    	<div class="icon-image components__single components__single--new" data-type="image"></div>
+	    	<div class="icon-text components__single components__single--new" data-type="text"></div>
+	    	<div class="icon-blockquote components__single components__single--new" data-type="blockquote"></div>
+	    	<div class="icon-gallery components__single components__single--new" data-type="gallery"></div>
+	    </div>
+	    <button ng-click="pages.preview()">Preview</button>
+	    <form class="form form--text" ng-submit="pages.updateModule()">
+	    	<h1>Add text</h1>
+	        <label>Content</label>
+	        <input type="text" name="content" ng-model="pages.module.content">
+
+	        <input type="submit" value="Save">
+	    </form>
+	    <form class="form form--image" ng-submit="pages.updateModule()">
+	    	<h1>Add an image</h1>
+	        <label>Url</label>
+	        <input type="text" name="content" ng-model="pages.module.content">
+	        <label>Caption</label>
+	        <input type="text" name="caption" ng-model="pages.module.caption">
+
+	        <input type="submit" value="Save">
+	    </form>
+	    <form class="form form--blockquote" ng-submit="pages.updateModule()">
+	    	<h1>Add a blockquote</h1>
+	        <label>Content</label>
+	        <input type="text" name="content" ng-model="pages.module.content">
+
+	        <input type="submit" value="Save">
+	    </form>
+    </aside>
+    <div class="preview">
+    <button class="preview__close" ng-click="pages.preview()">Exit Preview</button>
+    	<div class="preview__inner">
+    		<h1>{{pages.page.title}}</h1>
+    		<div class="richtext">
+	    		<ul>
+					<li ng-repeat="module in pages.page.modules | orderBy: 'rank'" id="{{module._id}}" class="richtext__module">
+						<div ng-if="module.type == 'text'">
+							<p>{{module.content }}</p>
+						</div>
+						<div ng-if="module.type == 'image'" class="single-image">
+							<img ng-src="{{module.content }}">
+							<span ng-if="module.caption" class="caption">{{ module.caption }}</span>
+						</div>
+						<div ng-if="module.type == 'blockquote'">
+							<blockquote>{{ module.content }}</blockquote>
+						</div>
+					</li>
+				</ul>
+			</div>
+    	</div>
+    </div>
+</div>
